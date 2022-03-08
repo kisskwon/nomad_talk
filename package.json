@@ -18,7 +18,9 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "react-scripts build"
+    "build": "react-scripts build",
+    "deploy": "gh-pages -d build",
+    "predeploy": "npm run build"
   },
   "eslintConfig": {
     "extends": [
@@ -37,6 +39,6 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  }
-  "homepage": "./"
+  },
+  "homepage": "https://kisskwon.github.io/thinq_talk/"
 }

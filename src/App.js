@@ -1,5 +1,6 @@
 import { createTheme, ThemeProvider } from "@mui/material";
-import { HashRouter } from "react-router-dom";
+import { HashRouter, useRoutes } from "react-router-dom";
+import TextMessage from "./screen/TextMessage";
 
 const darkTheme = createTheme({
   palette: {
@@ -18,9 +19,8 @@ function App() {
 }
 
 const AppRoutes = () => {
-  // const routes = useRoutes([{ path: "/", element: <Home /> }]);
-  // return routes;
-  return null;
+  const routes = useRoutes([{ path: "/", element: <TextMessage /> }]);
+  return routes;
 };
 
 export default App;
