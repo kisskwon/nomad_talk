@@ -1,3 +1,11 @@
+html, body {
+  /* background: transparent; */
+  background: url(img/background.jpeg) no-repeat;
+  background-size: contain;
+  width: 1920px;
+  height: 1080px;
+}
+
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',

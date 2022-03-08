@@ -1,7 +1,8 @@
 import React from "react";
+import OutlinedCard from "../components/OutlinedCard";
 
 function TextMessage(props) {
-  return <div>TEXT MESSAGE</div>;
+  return <OutlinedCard />;
 }
 
 export default TextMessage;
