@@ -52,7 +52,7 @@ export default function OutlinedCard() {
   return (
     <Box
       sx={{
-        position: "fixed",
+        position: "absolute",
         right: 10,
         bottom: 10,
       }}
