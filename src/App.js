@@ -1,5 +1,6 @@
 import { createTheme, ThemeProvider } from "@mui/material";
 import { HashRouter, useRoutes } from "react-router-dom";
+import ImageMessage from "./screen/ImageMessage";
 import TextMessage from "./screen/TextMessage";
 
 const darkTheme = createTheme({
@@ -22,7 +23,10 @@ function App() {
 }
 
 const AppRoutes = () => {
-  const routes = useRoutes([{ path: "/", element: <TextMessage /> }]);
+  const routes = useRoutes([
+    { path: "/text", element: <TextMessage /> },
+    { path: "/", element: <ImageMessage /> },
+  ]);
   return routes;
 };
 
