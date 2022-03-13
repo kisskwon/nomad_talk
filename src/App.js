@@ -24,9 +24,10 @@ function App() {
 
 const AppRoutes = () => {
   const routes = useRoutes([
-    { path: "/text", element: <TextMessage /> },
-    { path: "/", element: <ImageMessage /> },
+    { path: "/", element: <TextMessage /> },
+    { path: "/image", element: <ImageMessage /> },
   ]);
+
   return routes;
 };
 
