@@ -1,17 +1,11 @@
-import {
-  Avatar,
-  Button,
-  CardActionArea,
-  CardHeader,
-  Paper,
-} from "@mui/material";
+import { Avatar, CardHeader, Paper } from "@mui/material";
 import Box from "@mui/material/Box";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import { red } from "@mui/material/colors";
 import Typography from "@mui/material/Typography";
-import React, { useRef } from "react";
-import { Link } from "react-router-dom";
+import React, { useCallback, useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import icon from "../img/ic_launcher_thinq.png";
 
 const card = (message) => (
@@ -56,56 +50,83 @@ const card = (message) => (
 );
 
 function TextMessage(props) {
-  const [shown, setShown] = React.useState(true);
-  const messageBox = useRef();
-  React.useEffect(() => {
-    messageBox.current.focus();
-    if (props.youtube) {
+  const { image, youtube } = props;
+
+  const [shown, setShown] = useState(true);
+  const [event, setEvent] = useState("null");
+  const navigate = useNavigate();
+
+  const keyListener = useCallback(
+    (e) => {
+      setEvent(e.key);
+      if (e.key === "Enter") {
+        if (image) {
+          console.log("kks", "go detail");
+          navigate("/detail", { replace: true, state: e.key });
+        } else if (youtube) {
+          setShown(false);
+        }
+      } else if (e.key === "GoBack") {
+        // need finish web app
+        setShown(false);
+      }
+    },
+    [image, navigate, youtube]
+  );
+
+  const clickListener = useCallback((e) => {
+    console.log("kks", e);
+  }, []);
+
+  useEffect(() => {
+    window.addEventListener("keydown", keyListener);
+    window.addEventListener("click", clickListener);
+    return () => {
+      window.removeEventListener("keydown", keyListener);
+      window.removeEventListener("click", clickListener);
+    };
+  }, [clickListener, keyListener]);
+
+  useEffect(() => {
+    if (youtube) {
+      setShown(true);
       setTimeout(() => {
         setShown(false);
       }, 10000);
     }
-  }, [props.youtube]);
-  const message = props.image
+  }, [youtube]);
+
+  const message = image
     ? "오늘 손주 태권도 상 받아 왔어요~ (사진)"
     : "오늘 손녀 데뷔 했어요~ (동영상)";
   return (
-    <Box
-      sx={{
-        display: shown ? "block" : "none",
-        position: "absolute",
-        right: 10,
-        bottom: 10,
-      }}
-    >
-      <Card
-        variant="outlined"
+    <>
+      <Box sx={{ textAlign: "center" }}>
+        <Typography variant="h1" component="div" color="red">
+          {event}
+        </Typography>
+      </Box>
+      <Box
         sx={{
-          backgroundColor: "#000000aa",
-          width: 480,
-          borderRadius: 20,
-          p: 3,
+          display: shown ? "block" : "none",
+          position: "absolute",
+          right: 10,
+          bottom: 10,
         }}
       >
-        {props.image ? (
-          <CardActionArea
-            ref={messageBox}
-            component={Link}
-            to={"/detail"}
-            disableRipple={true}
-            sx={{ p: 0 }}
-          />
-        ) : (
-          <CardActionArea
-            ref={messageBox}
-            component={Button}
-            onClick={() => {}}
-            sx={{ p: 0 }}
-          />
-        )}
-        {card(message)}
-      </Card>
-    </Box>
+        <Card
+          variant="outlined"
+          sx={{
+            backgroundColor: "#000000aa",
+            width: 480,
+            borderRadius: 20,
+            p: 3,
+          }}
+        >
+          {card(message)}
+        </Card>
+      </Box>
+    </>
   );
 }
 
