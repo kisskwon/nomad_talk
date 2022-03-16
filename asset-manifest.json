@@ -1,13 +1,13 @@
 {
   "files": {
     "main.css": "/thinq_talk/static/css/main.2dd71135.css",
-    "main.js": "/thinq_talk/static/js/main.988934a5.js",
+    "main.js": "/thinq_talk/static/js/main.6fed7bbd.js",
     "index.html": "/thinq_talk/index.html",
     "main.2dd71135.css.map": "/thinq_talk/static/css/main.2dd71135.css.map",
-    "main.988934a5.js.map": "/thinq_talk/static/js/main.988934a5.js.map"
+    "main.6fed7bbd.js.map": "/thinq_talk/static/js/main.6fed7bbd.js.map"
   },
   "entrypoints": [
     "static/css/main.2dd71135.css",
-    "static/js/main.988934a5.js"
+    "static/js/main.6fed7bbd.js"
   ]
 }
