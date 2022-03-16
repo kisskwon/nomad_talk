@@ -1,5 +1,5 @@
 import { createTheme, ThemeProvider } from "@mui/material";
-import { HashRouter, useRoutes } from "react-router-dom";
+import { HashRouter, useLocation, useRoutes } from "react-router-dom";
 import ImageMessage from "./screen/ImageMessage";
 import TextMessage from "./screen/TextMessage";
 
@@ -24,9 +24,12 @@ function App() {
 
 const AppRoutes = () => {
   const routes = useRoutes([
-    { path: "/", element: <TextMessage /> },
-    { path: "/image", element: <ImageMessage /> },
+    { path: "/image", element: <TextMessage image /> },
+    { path: "/youtube", element: <TextMessage youtube /> },
+    { path: "/detail", element: <ImageMessage /> },
   ]);
+  const loc = useLocation();
+  console.log("kks", loc);
 
   return routes;
 };

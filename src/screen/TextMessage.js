@@ -1,4 +1,10 @@
-import { Avatar, CardActionArea, CardHeader, Paper } from "@mui/material";
+import {
+  Avatar,
+  Button,
+  CardActionArea,
+  CardHeader,
+  Paper,
+} from "@mui/material";
 import Box from "@mui/material/Box";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
@@ -8,7 +14,7 @@ import React, { useRef } from "react";
 import { Link } from "react-router-dom";
 import icon from "../img/ic_launcher_thinq.png";
 
-const card = (
+const card = (message) => (
   <React.Fragment>
     <CardHeader
       avatar={
@@ -35,9 +41,7 @@ const card = (
         </Typography>
       </Box>
       <Paper elevation={10} sx={{ my: 2, ml: 8, p: 6, borderRadius: 4 }}>
-        <Typography variant="body2">
-          오늘 손주 태권도 상 받아 왔어요~ (사진)
-        </Typography>
+        <Typography variant="body2">{message}</Typography>
       </Paper>
       <Typography
         variant="subtitle1"
@@ -52,13 +56,23 @@ const card = (
 );
 
 function TextMessage(props) {
+  const [shown, setShown] = React.useState(true);
   const messageBox = useRef();
   React.useEffect(() => {
     messageBox.current.focus();
-  }, []);
+    if (props.youtube) {
+      setTimeout(() => {
+        setShown(false);
+      }, 10000);
+    }
+  }, [props.youtube]);
+  const message = props.image
+    ? "오늘 손주 태권도 상 받아 왔어요~ (사진)"
+    : "오늘 손녀 데뷔 했어요~ (동영상)";
   return (
     <Box
       sx={{
+        display: shown ? "block" : "none",
         position: "absolute",
         right: 10,
         bottom: 10,
@@ -73,14 +87,23 @@ function TextMessage(props) {
           p: 3,
         }}
       >
-        <CardActionArea
-          ref={messageBox}
-          component={Link}
-          to={"/image"}
-          disableRipple={true}
-          sx={{ p: 0 }}
-        />
-        {card}
+        {props.image ? (
+          <CardActionArea
+            ref={messageBox}
+            component={Link}
+            to={"/detail"}
+            disableRipple={true}
+            sx={{ p: 0 }}
+          />
+        ) : (
+          <CardActionArea
+            ref={messageBox}
+            component={Button}
+            onClick={() => {}}
+            sx={{ p: 0 }}
+          />
+        )}
+        {card(message)}
       </Card>
     </Box>
   );

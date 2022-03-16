@@ -71,7 +71,7 @@ function ImageMessage(props) {
             <CardMedia
               component="img"
               width="480"
-              image="https://mui.com/static/images/cards/contemplative-reptile.jpg"
+              image="http://www.incheonilbo.com/news/photo/201006/387214_2982_1525.jpg"
               alt="green iguana"
             />
           </Paper>
@@ -80,7 +80,7 @@ function ImageMessage(props) {
             color="text.secondary"
             sx={{ textAlign: "center" }}
           >
-            리모콘의 "OK" 버튼을 눌러 자세히 보기
+            리모콘의 "OK"를 눌러 TV화면으로 돌아가기
           </Typography>
         </CardContent>
       </Card>
