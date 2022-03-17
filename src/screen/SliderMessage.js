@@ -1,7 +1,6 @@
 import { Avatar, Box, CardHeader, Paper } from "@mui/material";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
-import CardMedia from "@mui/material/CardMedia";
 import { red } from "@mui/material/colors";
 import Typography from "@mui/material/Typography";
 import { getDownloadURL, listAll, ref } from "firebase/storage";
@@ -13,7 +12,7 @@ function ImageMessage(props) {
   const location = useLocation();
   const [event, setEvent] = useState("prev: " + location.state);
   const [shown, setShown] = useState(true);
-  const [imgUrl, setImgUrl] = useState(null);
+  const [imgUrl, setImgUrl] = useState([]);
 
   useEffect(() => {
     const listener = (e) => {
@@ -40,9 +39,8 @@ function ImageMessage(props) {
           return;
         }
         res.items.forEach((itemRef) => {
-          console.log("kks", itemRef);
           getDownloadURL(itemRef).then((url) => {
-            setImgUrl(url);
+            setImgUrl((urls) => urls.push(url));
           });
         });
       })
@@ -97,15 +95,7 @@ function ImageMessage(props) {
                   py: 2,
                 }}
               >
-                <Typography gutterBottom variant="body2">
-                  오늘 손주 태권도 상 받아 왔어요~
-                </Typography>
-                <CardMedia
-                  component="img"
-                  width="480"
-                  image={imgUrl}
-                  alt="green iguana"
-                />
+                하하
               </Paper>
               <Typography
                 variant="subtitle1"

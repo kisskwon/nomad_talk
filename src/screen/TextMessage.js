@@ -98,7 +98,8 @@ function TextMessage(props) {
 
   const message = image
     ? "오늘 손주 태권도 상 받아 왔어요~ (사진)"
-    : "오늘 손녀 데뷔 했어요~ (동영상)";
+    : "제가 좋아하는 걸그룹이예요~ (동영상)";
+
   return (
     <>
       <Box sx={{ textAlign: "center" }}>
