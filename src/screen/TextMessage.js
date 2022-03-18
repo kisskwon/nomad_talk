@@ -4,8 +4,11 @@ import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import { red } from "@mui/material/colors";
 import Typography from "@mui/material/Typography";
+import { doc, setDoc } from "firebase/firestore";
 import React, { useCallback, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { debug } from "../constants";
+import { db } from "../firebase/firebase";
 import icon from "../img/ic_launcher_thinq.png";
 
 const card = (message) => (
@@ -51,8 +54,6 @@ const card = (message) => (
 
 function TextMessage(props) {
   const { image, youtube } = props;
-
-  const [shown, setShown] = useState(true);
   const [event, setEvent] = useState("null");
   const navigate = useNavigate();
 
@@ -62,21 +63,27 @@ function TextMessage(props) {
       if (e.key === "Enter") {
         if (image) {
           console.log("kks", "go detail");
-          navigate("/detail", { replace: true, state: e.key });
+          navigate("/detail2", { replace: true, state: e.key });
         } else if (youtube) {
-          setShown(false);
+          setDoc(doc(db, "video", "youtube"), {
+            on: true,
+          });
+          setTimeout(() => navigate("/", { replace: true }), 500);
         }
       } else if (e.key === "GoBack") {
         // need finish web app
-        setShown(false);
+        navigate("/", { replace: true });
       }
     },
-    [image, navigate, youtube]
+    [navigate, image, youtube]
   );
 
-  const clickListener = useCallback((e) => {
-    console.log("kks", e);
-  }, []);
+  const clickListener = useCallback(
+    (e) => {
+      keyListener({ key: "Enter" });
+    },
+    [keyListener]
+  );
 
   useEffect(() => {
     window.addEventListener("keydown", keyListener);
@@ -87,29 +94,21 @@ function TextMessage(props) {
     };
   }, [clickListener, keyListener]);
 
-  useEffect(() => {
-    if (youtube) {
-      setShown(true);
-      setTimeout(() => {
-        setShown(false);
-      }, 10000);
-    }
-  }, [youtube]);
-
   const message = image
     ? "오늘 손주 태권도 상 받아 왔어요~ (사진)"
     : "제가 좋아하는 걸그룹이예요~ (동영상)";
 
   return (
     <>
-      <Box sx={{ textAlign: "center" }}>
-        <Typography variant="h1" component="div" color="red">
-          {event}
-        </Typography>
-      </Box>
+      {debug && (
+        <Box sx={{ textAlign: "center" }}>
+          <Typography variant="h1" component="div" color="red">
+            {event}
+          </Typography>
+        </Box>
+      )}
       <Box
         sx={{
-          display: shown ? "block" : "none",
           position: "absolute",
           right: 10,
           bottom: 10,

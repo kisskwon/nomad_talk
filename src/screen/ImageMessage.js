@@ -39,12 +39,11 @@ function ImageMessage(props) {
           );
           return;
         }
-        res.items.forEach((itemRef) => {
-          console.log("kks", itemRef);
+        res.items.forEach((itemRef) =>
           getDownloadURL(itemRef).then((url) => {
             setImgUrl(url);
-          });
-        });
+          })
+        );
       })
       .catch((error) => {
         console.log("kks", "listAll error", error);
