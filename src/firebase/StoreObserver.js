@@ -1,17 +1,19 @@
-import { doc, onSnapshot } from "firebase/firestore";
+import { doc, onSnapshot, setDoc } from "firebase/firestore";
 import { getDownloadURL, listAll, ref } from "firebase/storage";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useRecoilState, useResetRecoilState } from "recoil";
 import { imageUrlsState } from "../data/imageUrls";
 import { db, storage } from "./firebase";
+import singleImg from "../img/takkwan.jpeg";
 
-let initDB = false;
+let initDB = true;
+let initTypeDB = false;
 
 const useNavigation = () => {
   const nativeNavigate = useNavigate();
-  const navigate = (destination) => {
-    nativeNavigate(destination);
+  const navigate = (destination, options) => {
+    nativeNavigate(destination, options);
   };
 
   return { navigate };
@@ -19,6 +21,7 @@ const useNavigation = () => {
 
 function StoreObserver(props) {
   const [updated, setUpdated] = useState(-1);
+  const [msgtype, setMsgtype] = useState("");
   const [, setImageUrls] = useRecoilState(imageUrlsState);
   const resetImageUrls = useResetRecoilState(imageUrlsState);
   const navigation = useRef(useNavigation());
@@ -42,8 +45,9 @@ function StoreObserver(props) {
               const blob = xhr.response;
               setImageUrls((prev) => [
                 ...prev,
-                window.URL.createObjectURL(blob),
+                <img src={window.URL.createObjectURL(blob)} alt="" width="750px" />,
               ]);
+              window.URL.revokeObjectURL(blob);
             };
             xhr.open("GET", url);
             xhr.send();
@@ -57,14 +61,25 @@ function StoreObserver(props) {
 
   useEffect(() => {
     const unsubscribe = onSnapshot(doc(db, "gallery", "modified"), (doc) => {
-      console.log("kks", "onSnapshot");
+      console.log("kks", "onSnapshot", doc.data());
       if (!initDB) {
         initDB = true;
         return;
       }
       setUpdated(doc.data().modified);
     });
-    return unsubscribe;
+    const unsubscribeType = onSnapshot(doc(db, "messages", "type"), (doc) => {
+      console.log("kks", "onSnapshot", doc.data());
+      if (!initTypeDB) {
+        initTypeDB = true;
+        return;
+      }
+      setMsgtype(doc.data().type);
+    });
+    return () => {
+      unsubscribe();
+      unsubscribeType();
+    }
   }, []);
 
   useEffect(() => {
@@ -75,9 +90,21 @@ function StoreObserver(props) {
 
   useEffect(() => {
     if (updated !== -1) {
-      navigation.current.navigate("/image");
+      navigation.current.navigate("/slider");
+      setDoc(doc(db, "messages", "type"), {
+        type: "slider",
+      });
     }
   }, [updated]);
+
+  useEffect(() => {
+    if (msgtype === "single") {
+      setImageUrls([<img src={singleImg} alt="" width="750px" />]);
+      navigation.current.navigate("/image");
+    } else if (msgtype === "youtube") {
+      navigation.current.navigate("/youtube");
+    }
+  }, [msgtype, setImageUrls]);
   return null;
 }
 

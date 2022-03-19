@@ -53,17 +53,24 @@ const card = (message) => (
 );
 
 function TextMessage(props) {
-  const { image, youtube } = props;
+  const { image, slider, youtube } = props;
   const [event, setEvent] = useState("null");
   const navigate = useNavigate();
+
+  let message = "오늘 손주 태권도 상 받아 왔어요~ (사진)";
+  if (slider) {
+    message = "사진 여러장 보내드려요~ (사진)";
+  } else if (youtube) {
+    message = "제가 좋아하는 걸그룹이예요~ (동영상)";
+  }
 
   const keyListener = useCallback(
     (e) => {
       setEvent(e.key);
       if (e.key === "Enter") {
-        if (image) {
+        if (image || slider) {
           console.log("kks", "go detail");
-          navigate("/detail2", { replace: true, state: e.key });
+          navigate("/detail", { replace: true, state: {keyevent: e.key, message: message }});
         } else if (youtube) {
           setDoc(doc(db, "video", "youtube"), {
             on: true,
@@ -75,7 +82,7 @@ function TextMessage(props) {
         navigate("/", { replace: true });
       }
     },
-    [navigate, image, youtube]
+    [navigate, image, slider, youtube, message]
   );
 
   const clickListener = useCallback(
@@ -93,10 +100,6 @@ function TextMessage(props) {
       window.removeEventListener("click", clickListener);
     };
   }, [clickListener, keyListener]);
-
-  const message = image
-    ? "오늘 손주 태권도 상 받아 왔어요~ (사진)"
-    : "제가 좋아하는 걸그룹이예요~ (동영상)";
 
   return (
     <>

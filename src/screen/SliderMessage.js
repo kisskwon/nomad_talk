@@ -14,19 +14,18 @@ import "./SliderMessage.css";
 
 function ImageMessage(props) {
   const location = useLocation();
-  const [event, setEvent] = useState("prev: " + location.state);
-  const imageUrls = useRecoilValue(imageUrlsState);
+  const [event, setEvent] = useState("prev: " + location.state.keyevent);
+  const imageItems = useRecoilValue(imageUrlsState);
   const navigate = useNavigate();
   const sliderRef = useRef();
   const [autoplay, setAutoplay] = useState(true);
 
-  console.log("kks", imageUrls);
+  console.log("kks", imageItems);
   useEffect(() => {
     const keyListener = (e) => {
       setEvent(e.key);
       if (e.key === "Enter" || e.key === "GoBack") {
         navigate("/", { replace: true });
-        imageUrls.forEach((url) => window.URL.revokeObjectURL(url));
       } else if (e.key === "ArrowLeft") {
         setAutoplay(false);
         sliderRef.current.goBack();
@@ -46,7 +45,7 @@ function ImageMessage(props) {
       window.removeEventListener("keydown", keyListener);
       window.removeEventListener("click", clickListener);
     };
-  }, [imageUrls, navigate]);
+  }, [navigate]);
   return (
     <>
       {debug && (
@@ -93,23 +92,17 @@ function ImageMessage(props) {
                 py: 2,
               }}
             >
+              <Typography gutterBottom variant="body2">{location.state.message}</Typography>
               <Slide
                 ref={sliderRef}
-                duration={3000}
-                arrows={false}
-                indicators={imageUrls.length > 1}
-                autoplay={imageUrls.length > 1 && autoplay}
+                duration={2000}
+                arrows={imageItems.length > 1}
+                indicators={imageItems.length > 1}
+                autoplay={imageItems.length > 1 && autoplay}
               >
-                {imageUrls.map((slideImage, index) => (
+                {imageItems.map((slideImage, index) => (
                   <div className="each-slide" key={index}>
-                    <div
-                    // style={{
-                    //   background: `url(${slideImage}) no-repeat center / contain`,
-                    //   minHeight: "500px",
-                    // }}
-                    >
-                      <img src={slideImage} alt="" width="750px" />
-                    </div>
+                    {slideImage}
                   </div>
                 ))}
               </Slide>
