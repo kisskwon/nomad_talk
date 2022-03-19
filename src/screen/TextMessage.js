@@ -69,7 +69,6 @@ function TextMessage(props) {
       setEvent(e.key);
       if (e.key === "Enter") {
         if (image || slider) {
-          console.log("kks", "go detail");
           navigate("/detail", { replace: true, state: {keyevent: e.key, message: message }});
         } else if (youtube) {
           setDoc(doc(db, "video", "youtube"), {
