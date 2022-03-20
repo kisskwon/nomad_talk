@@ -20,7 +20,6 @@ function ImageMessage(props) {
   const sliderRef = useRef();
   const [autoplay, setAutoplay] = useState(true);
 
-  console.log("kks", imageItems);
   useEffect(() => {
     const keyListener = (e) => {
       setEvent(e.key);

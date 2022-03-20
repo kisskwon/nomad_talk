@@ -99,7 +99,6 @@ function TextMessage(props) {
       window.removeEventListener("click", clickListener);
     };
   }, [clickListener, keyListener]);
-
   return (
     <>
       {debug && (

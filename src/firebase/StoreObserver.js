@@ -7,8 +7,7 @@ import { imageUrlsState } from "../data/imageUrls";
 import { db, storage } from "./firebase";
 import singleImg from "../img/takkwan.jpeg";
 
-let initDB = true;
-let initTypeDB = false;
+let initDB = false;
 
 const useNavigation = () => {
   const nativeNavigate = useNavigate();
@@ -20,7 +19,6 @@ const useNavigation = () => {
 };
 
 function StoreObserver(props) {
-  const [updated, setUpdated] = useState(-1);
   const [msgtype, setMsgtype] = useState("");
   const [, setImageUrls] = useRecoilState(imageUrlsState);
   const resetImageUrls = useResetRecoilState(imageUrlsState);
@@ -60,51 +58,38 @@ function StoreObserver(props) {
   }, [resetImageUrls, setImageUrls]);
 
   useEffect(() => {
-    const unsubscribe = onSnapshot(doc(db, "gallery", "modified"), (doc) => {
+    const unsubscribe = onSnapshot(doc(db, "messages", "type"), (doc) => {
       console.log("kks", "onSnapshot", doc.data());
       if (!initDB) {
         initDB = true;
         return;
       }
-      setUpdated(doc.data().modified);
-    });
-    const unsubscribeType = onSnapshot(doc(db, "messages", "type"), (doc) => {
-      console.log("kks", "onSnapshot", doc.data());
-      if (!initTypeDB) {
-        initTypeDB = true;
-        return;
-      }
       setMsgtype(doc.data().type);
     });
-    return () => {
-      unsubscribe();
-      unsubscribeType();
-    }
+    return unsubscribe;
   }, []);
 
   useEffect(() => {
-    if (updated !== -1) {
-      predownload();
-    }
-  }, [predownload, updated]);
-
-  useEffect(() => {
-    if (updated !== -1) {
-      navigation.current.navigate("/slider");
-      setDoc(doc(db, "messages", "type"), {
-        type: "slider",
-      });
-    }
-  }, [updated]);
-
-  useEffect(() => {
+    console.log("kks", "msgType changed", msgtype);
     if (msgtype === "single") {
       setImageUrls([<img src={singleImg} alt="" width="750px" />]);
       navigation.current.navigate("/image");
+      setDoc(doc(db, "messages", "type"), {
+        type: "",
+      });
+    } else if (msgtype === "slider") {
+      predownload();
+      navigation.current.navigate("/slider");
+      setDoc(doc(db, "messages", "type"), {
+        type: "",
+      });
     } else if (msgtype === "youtube") {
       navigation.current.navigate("/youtube");
+      setDoc(doc(db, "messages", "type"), {
+        type: "",
+      });
     }
-  }, [msgtype, setImageUrls]);
+  }, [msgtype, setImageUrls, predownload]);
   return null;
 }
 
