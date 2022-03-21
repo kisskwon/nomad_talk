@@ -1,15 +1,14 @@
 {
   "files": {
     "main.css": "/thinq_talk/static/css/main.a847c291.css",
-    "main.js": "/thinq_talk/static/js/main.6f54852e.js",
+    "main.js": "/thinq_talk/static/js/main.b41f86f7.js",
     "static/media/takkwan.jpeg": "/thinq_talk/static/media/takkwan.cd33591061aa403d7df8.jpeg",
-    "static/media/iphone_message_notification.mp3": "/thinq_talk/static/media/iphone_message_notification.c0b23f30fa0e30141ef0.mp3",
     "index.html": "/thinq_talk/index.html",
     "main.a847c291.css.map": "/thinq_talk/static/css/main.a847c291.css.map",
-    "main.6f54852e.js.map": "/thinq_talk/static/js/main.6f54852e.js.map"
+    "main.b41f86f7.js.map": "/thinq_talk/static/js/main.b41f86f7.js.map"
   },
   "entrypoints": [
     "static/css/main.a847c291.css",
-    "static/js/main.6f54852e.js"
+    "static/js/main.b41f86f7.js"
   ]
 }
