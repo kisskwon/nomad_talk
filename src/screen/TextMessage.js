@@ -11,7 +11,7 @@ import { debug } from "../constants";
 import { db } from "../firebase/firebase";
 import icon from "../img/ic_launcher_thinq.png";
 
-const card = (message) => (
+const card = (props, message) => (
   <React.Fragment>
     <CardHeader
       avatar={
@@ -22,7 +22,7 @@ const card = (message) => (
           src={icon}
         />
       }
-      title={"ThinQTalk"}
+      title={props.slider ? "ThinQ Gallery" : "ThinQ Talk"}
       titleTypographyProps={{ variant: "h5" }}
     />
     <CardContent>
@@ -59,7 +59,7 @@ function TextMessage(props) {
 
   let message = "오늘 손주 태권도 상 받아 왔어요~ (사진)";
   if (slider) {
-    message = "사진 여러장 보내드려요~ (사진)";
+    message = "지호 어린이집 첫 등교했어요~ (사진)";
   } else if (youtube) {
     message = "제가 좋아하는 걸그룹이예요~ (동영상)";
   }
@@ -69,7 +69,10 @@ function TextMessage(props) {
       setEvent(e.key);
       if (e.key === "Enter") {
         if (image || slider) {
-          navigate("/detail", { replace: true, state: {keyevent: e.key, message: message }});
+          navigate("/detail", {
+            replace: true,
+            state: { keyevent: e.key, message: message, slider },
+          });
         } else if (youtube) {
           setDoc(doc(db, "video", "youtube"), {
             on: true,
@@ -99,11 +102,12 @@ function TextMessage(props) {
       window.removeEventListener("click", clickListener);
     };
   }, [clickListener, keyListener]);
+
   return (
     <>
       {debug && (
-        <Box sx={{ textAlign: "center" }}>
-          <Typography variant="h1" component="div" color="red">
+        <Box sx={{ position: "absolute", top: 0, left: 4 }}>
+          <Typography variant="h6" component="div" color="red">
             {event}
           </Typography>
         </Box>
@@ -124,7 +128,7 @@ function TextMessage(props) {
             p: 3,
           }}
         >
-          {card(message)}
+          {card(props, message)}
         </Card>
       </Box>
     </>

@@ -12,9 +12,9 @@ import { debug } from "../constants";
 import { imageUrlsState } from "../data/imageUrls";
 import "./SliderMessage.css";
 
-function ImageMessage(props) {
+function SliderMessage(props) {
   const location = useLocation();
-  const [event, setEvent] = useState("prev: " + location.state.keyevent);
+  const [event, setEvent] = useState(location.state.keyevent);
   const imageItems = useRecoilValue(imageUrlsState);
   const navigate = useNavigate();
   const sliderRef = useRef();
@@ -48,8 +48,8 @@ function ImageMessage(props) {
   return (
     <>
       {debug && (
-        <Box sx={{ textAlign: "center" }}>
-          <Typography variant="h1" component="div" color="red">
+        <Box sx={{ position: "absolute", top: 0, left: 4 }}>
+          <Typography variant="h6" component="div" color="red">
             {event}
           </Typography>
         </Box>
@@ -63,7 +63,7 @@ function ImageMessage(props) {
       >
         <Card
           sx={{
-            width: 800,
+            width: 700,
             backgroundColor: "#000000aa",
             borderRadius: 20,
             p: 2,
@@ -79,7 +79,11 @@ function ImageMessage(props) {
                 최
               </Avatar>
             }
-            title={"최신규 님의 메세지"}
+            title={
+              location.state.slider
+                ? "최신규 님의 갤러리"
+                : "최신규 님의 메세지"
+            }
             titleTypographyProps={{ variant: "h6" }}
           />
           <CardContent>
@@ -91,7 +95,9 @@ function ImageMessage(props) {
                 py: 2,
               }}
             >
-              <Typography gutterBottom variant="body2">{location.state.message}</Typography>
+              <Typography gutterBottom variant="body2">
+                {location.state.message}
+              </Typography>
               <Slide
                 ref={sliderRef}
                 duration={2000}
@@ -100,8 +106,12 @@ function ImageMessage(props) {
                 autoplay={imageItems.length > 1 && autoplay}
               >
                 {imageItems.map((slideImage, index) => (
-                  <div className="each-slide" key={index}>
-                    {slideImage}
+                  <div
+                    className="each-slide"
+                    key={index}
+                    style={{ textAlign: "center" }}
+                  >
+                    <img src={slideImage} alt="" width="540px" />
                   </div>
                 ))}
               </Slide>
@@ -120,4 +130,4 @@ function ImageMessage(props) {
   );
 }
 
-export default ImageMessage;
+export default SliderMessage;

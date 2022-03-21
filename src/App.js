@@ -2,6 +2,7 @@ import { createTheme, ThemeProvider } from "@mui/material";
 import { HashRouter, useRoutes } from "react-router-dom";
 import { RecoilRoot } from "recoil";
 import StoreObserver from "./firebase/StoreObserver";
+import Idle from "./screen/Idle";
 import SliderMessage from "./screen/SliderMessage";
 import TextMessage from "./screen/TextMessage";
 
@@ -29,7 +30,7 @@ function App() {
 
 const AppRoutes = () => {
   const routes = useRoutes([
-    { path: "/", element: <></> },
+    { path: "/", element: <Idle /> },
     { path: "/image", element: <TextMessage image /> },
     { path: "/slider", element: <TextMessage slider /> },
     { path: "/youtube", element: <TextMessage youtube /> },

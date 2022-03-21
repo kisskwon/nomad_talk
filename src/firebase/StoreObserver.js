@@ -4,8 +4,8 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useRecoilState, useResetRecoilState } from "recoil";
 import { imageUrlsState } from "../data/imageUrls";
-import { db, storage } from "./firebase";
 import singleImg from "../img/takkwan.jpeg";
+import { db, storage } from "./firebase";
 
 let initDB = false;
 
@@ -43,7 +43,7 @@ function StoreObserver(props) {
               const blob = xhr.response;
               setImageUrls((prev) => [
                 ...prev,
-                <img src={window.URL.createObjectURL(blob)} alt="" width="750px" />,
+                window.URL.createObjectURL(blob),
               ]);
               window.URL.revokeObjectURL(blob);
             };
@@ -72,7 +72,7 @@ function StoreObserver(props) {
   useEffect(() => {
     console.log("kks", "msgType changed", msgtype);
     if (msgtype === "single") {
-      setImageUrls([<img src={singleImg} alt="" width="750px" />]);
+      setImageUrls([singleImg]);
       navigation.current.navigate("/image");
       setDoc(doc(db, "messages", "type"), {
         type: "",
