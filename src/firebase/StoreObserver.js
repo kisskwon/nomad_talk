@@ -58,14 +58,17 @@ function StoreObserver(props) {
   }, [resetImageUrls, setImageUrls]);
 
   useEffect(() => {
-    const unsubscribe = onSnapshot(doc(db, "messages", "type"), (doc) => {
-      console.log("kks", "onSnapshot", doc.data());
-      if (!initDB) {
-        initDB = true;
-        return;
+    const unsubscribe = onSnapshot(
+      doc(db, "thinq_talk", "message_type"),
+      (doc) => {
+        console.log("kks", "onSnapshot", doc.data());
+        if (!initDB) {
+          initDB = true;
+          return;
+        }
+        setMsgtype(doc.data().type);
       }
-      setMsgtype(doc.data().type);
-    });
+    );
     return unsubscribe;
   }, []);
 
@@ -74,18 +77,18 @@ function StoreObserver(props) {
     if (msgtype === "single") {
       setImageUrls([singleImg]);
       navigation.current.navigate("/image");
-      setDoc(doc(db, "messages", "type"), {
+      setDoc(doc(db, "thinq_talk", "message_type"), {
         type: "",
       });
     } else if (msgtype === "slider") {
       predownload();
       navigation.current.navigate("/slider");
-      setDoc(doc(db, "messages", "type"), {
+      setDoc(doc(db, "thinq_talk", "message_type"), {
         type: "",
       });
     } else if (msgtype === "youtube") {
       navigation.current.navigate("/youtube");
-      setDoc(doc(db, "messages", "type"), {
+      setDoc(doc(db, "thinq_talk", "message_type"), {
         type: "",
       });
     }

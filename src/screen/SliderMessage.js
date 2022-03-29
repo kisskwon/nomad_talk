@@ -3,6 +3,7 @@ import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import { red } from "@mui/material/colors";
 import Typography from "@mui/material/Typography";
+import { doc, setDoc } from "firebase/firestore";
 import React, { useEffect, useRef, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { Slide } from "react-slideshow-image";
@@ -10,6 +11,7 @@ import "react-slideshow-image/dist/styles.css";
 import { useRecoilValue } from "recoil";
 import { debug } from "../constants";
 import { imageUrlsState } from "../data/imageUrls";
+import { db } from "../firebase/firebase";
 import "./SliderMessage.css";
 
 function SliderMessage(props) {
@@ -25,6 +27,9 @@ function SliderMessage(props) {
       setEvent(e.key);
       if (e.key === "Enter" || e.key === "GoBack") {
         navigate("/", { replace: true });
+        setDoc(doc(db, "thinq_talk", "application"), {
+          poweron: false,
+        });
       } else if (e.key === "ArrowLeft") {
         setAutoplay(false);
         sliderRef.current.goBack();
@@ -103,6 +108,7 @@ function SliderMessage(props) {
                 duration={2000}
                 arrows={imageItems.length > 1}
                 indicators={imageItems.length > 1}
+                infinite={imageItems.length > 1}
                 autoplay={imageItems.length > 1 && autoplay}
               >
                 {imageItems.map((slideImage, index) => (

@@ -74,14 +74,22 @@ function TextMessage(props) {
             state: { keyevent: e.key, message: message, slider },
           });
         } else if (youtube) {
-          setDoc(doc(db, "video", "youtube"), {
-            on: true,
+          setDoc(doc(db, "thinq_talk", "youtube"), {
+            play: true,
           });
-          setTimeout(() => navigate("/", { replace: true }), 500);
+          setTimeout(() => {
+            navigate("/", { replace: true });
+            setDoc(doc(db, "thinq_talk", "application"), {
+              poweron: false,
+            });
+          }, 500);
         }
       } else if (e.key === "GoBack") {
         // need finish web app
         navigate("/", { replace: true });
+        setDoc(doc(db, "thinq_talk", "application"), {
+          poweron: false,
+        });
       }
     },
     [navigate, image, slider, youtube, message]
