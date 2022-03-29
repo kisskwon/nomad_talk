@@ -33,9 +33,7 @@ function StoreObserver(props) {
           return prev;
         });
         resetImageUrls();
-        console.log("kks", "listAll", res);
         res.items.forEach((itemRef) => {
-          console.log("kks", "itemRef", itemRef.name);
           getDownloadURL(itemRef).then((url) => {
             const xhr = new XMLHttpRequest();
             xhr.responseType = "blob";
@@ -58,10 +56,12 @@ function StoreObserver(props) {
   }, [resetImageUrls, setImageUrls]);
 
   useEffect(() => {
+    setDoc(doc(db, "thinq_talk", "application"), {
+      poweron: true,
+    });
     const unsubscribe = onSnapshot(
       doc(db, "thinq_talk", "message_type"),
       (doc) => {
-        console.log("kks", "onSnapshot", doc.data());
         if (!initDB) {
           initDB = true;
           return;
@@ -73,7 +73,6 @@ function StoreObserver(props) {
   }, []);
 
   useEffect(() => {
-    console.log("kks", "msgType changed", msgtype);
     if (msgtype === "single") {
       setImageUrls([singleImg]);
       navigation.current.navigate("/image");
