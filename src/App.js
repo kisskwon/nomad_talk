@@ -3,6 +3,7 @@ import { HashRouter, useRoutes } from "react-router-dom";
 import { RecoilRoot } from "recoil";
 import StoreObserver from "./firebase/StoreObserver";
 import Idle from "./screen/Idle";
+import ImageViewer from "./screen/ImageViewer";
 import SliderMessage from "./screen/SliderMessage";
 import TextMessage from "./screen/TextMessage";
 
@@ -35,6 +36,8 @@ const AppRoutes = () => {
     { path: "/slider", element: <TextMessage slider /> },
     { path: "/youtube", element: <TextMessage youtube /> },
     { path: "/detail", element: <SliderMessage /> },
+    { path: "/viewer", element: <ImageViewer /> },
+    { path: "/shopping", element: <TextMessage shopping /> },
   ]);
   return routes;
 };

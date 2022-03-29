@@ -4,7 +4,7 @@ import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import { red } from "@mui/material/colors";
 import Typography from "@mui/material/Typography";
-import { doc, setDoc } from "firebase/firestore";
+import { doc, setDoc, writeBatch } from "firebase/firestore";
 import React, { useCallback, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { debug } from "../constants";
@@ -53,7 +53,7 @@ const card = (props, message) => (
 );
 
 function TextMessage(props) {
-  const { image, slider, youtube } = props;
+  const { image, slider, youtube, shopping } = props;
   const [event, setEvent] = useState("null");
   const navigate = useNavigate();
 
@@ -62,6 +62,8 @@ function TextMessage(props) {
     message = "지호 어린이집 첫 등교했어요~ (사진)";
   } else if (youtube) {
     message = "제가 좋아하는 걸그룹이예요~ (동영상)";
+  } else if (shopping) {
+    message = "쇼핑 목록이 업데이트 되었어요~ ";
   }
 
   const keyListener = useCallback(
@@ -83,6 +85,14 @@ function TextMessage(props) {
               poweron: false,
             });
           }, 500);
+        } else if (shopping) {
+          navigate("/", { replace: true });
+          const batch = writeBatch(db);
+          batch.set(doc(db, "thinq_talk", "application"), {
+            poweron: false,
+          });
+          batch.set(doc(db, "thinq_talk", "browser"), { show: true });
+          batch.commit();
         }
       } else if (e.key === "GoBack") {
         // need finish web app
@@ -92,7 +102,7 @@ function TextMessage(props) {
         });
       }
     },
-    [navigate, image, slider, youtube, message]
+    [image, slider, youtube, shopping, navigate, message]
   );
 
   const clickListener = useCallback(

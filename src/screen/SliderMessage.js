@@ -21,7 +21,11 @@ function SliderMessage(props) {
   const navigate = useNavigate();
   const sliderRef = useRef();
   const [autoplay, setAutoplay] = useState(true);
+  const [imgIndex, setImgIndex] = useState(
+    Number(localStorage.getItem("imgIndex")) || 0
+  );
 
+  console.log("kks", imgIndex);
   useEffect(() => {
     const keyListener = (e) => {
       setEvent(e.key);
@@ -36,6 +40,11 @@ function SliderMessage(props) {
       } else if (e.key === "ArrowRight") {
         setAutoplay(false);
         sliderRef.current.goNext();
+      } else if (e.key === "ArrowUp") {
+        // go hwakdae
+        navigate("/viewer", {
+          state: { image: imageItems[imgIndex], imgIndex: imgIndex },
+        });
       }
     };
 
@@ -49,7 +58,10 @@ function SliderMessage(props) {
       window.removeEventListener("keydown", keyListener);
       window.removeEventListener("click", clickListener);
     };
-  }, [navigate]);
+  }, [imageItems, imgIndex, navigate]);
+
+  useEffect(() => localStorage.setItem("imgIndex", imgIndex), [imgIndex]);
+
   return (
     <>
       {debug && (
@@ -110,6 +122,10 @@ function SliderMessage(props) {
                 indicators={imageItems.length > 1}
                 infinite={imageItems.length > 1}
                 autoplay={imageItems.length > 1 && autoplay}
+                onChange={(target) => {
+                  setImgIndex((target + 1) % imageItems.length);
+                }}
+                defaultIndex={imgIndex}
               >
                 {imageItems.map((slideImage, index) => (
                   <div

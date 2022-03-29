@@ -73,6 +73,7 @@ function StoreObserver(props) {
   }, []);
 
   useEffect(() => {
+    console.log("kks", msgtype);
     if (msgtype === "single") {
       setImageUrls([singleImg]);
       navigation.current.navigate("/image");
@@ -87,6 +88,11 @@ function StoreObserver(props) {
       });
     } else if (msgtype === "youtube") {
       navigation.current.navigate("/youtube");
+      setDoc(doc(db, "thinq_talk", "message_type"), {
+        type: "",
+      });
+    } else if (msgtype === "shopping") {
+      navigation.current.navigate("/shopping");
       setDoc(doc(db, "thinq_talk", "message_type"), {
         type: "",
       });
