@@ -6,6 +6,7 @@ import Idle from "./screen/Idle";
 import ImageViewer from "./screen/ImageViewer";
 import SliderMessage from "./screen/SliderMessage";
 import TextMessage from "./screen/TextMessage";
+import NetflixMessage from "./screen/NetflixMessage";
 
 const darkTheme = createTheme({
   palette: {
@@ -38,6 +39,7 @@ const AppRoutes = () => {
     { path: "/detail", element: <SliderMessage /> },
     { path: "/viewer", element: <ImageViewer /> },
     { path: "/shopping", element: <TextMessage shopping /> },
+    { path: "/netflix", element: <NetflixMessage /> },
   ]);
   return routes;
 };
