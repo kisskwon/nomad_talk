@@ -36,6 +36,7 @@ const AppRoutes = () => {
     { path: "/image", element: <TextMessage image /> },
     { path: "/slider", element: <TextMessage slider /> },
     { path: "/youtube", element: <TextMessage youtube /> },
+    { path: "/kakaotalk", element: <TextMessage kakaotalk /> },
     { path: "/detail", element: <SliderMessage /> },
     { path: "/viewer", element: <ImageViewer /> },
     { path: "/shopping", element: <LauncherMessage shopping /> },

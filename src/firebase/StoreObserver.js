@@ -101,6 +101,11 @@ function StoreObserver(props) {
       setDoc(doc(db, "thinq_talk", "message_type"), {
         type: "",
       });
+    } else if (msgtype === "kakaotalk") {
+      navigation.current.navigate("/kakaotalk");
+      setDoc(doc(db, "thinq_talk", "message_type"), {
+        type: "",
+      });
     }
   }, [msgtype, setImageUrls, predownload]);
   return null;
