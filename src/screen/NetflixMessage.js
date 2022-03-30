@@ -53,6 +53,7 @@ function NetflixMessage(props) {
       const docSnap = await getDoc(doc(db, "thinq_talk", "contents"));
       setTitle(docSnap.data().title);
       setSummary(docSnap.data().summary);
+      setImgUrl(docSnap.data().url);
     };
     getContents();
   }, []);
