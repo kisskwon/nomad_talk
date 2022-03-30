@@ -12,7 +12,7 @@ import { db } from "../firebase/firebase";
 function NetflixMessage(props) {
   const [event, setEvent] = useState("null");
   const [imgUrl, setImgUrl] = useState(
-    "https://occ-0-3109-58.1.nflxso.net/dnm/api/v6/E8vDc_W8CLv7-yMQu8KMEC7Rrr8/AAAABQ1hKknTqoJLTSd81mwp-cHQPGps6VbddOZnx_wkqPyWysAH0GAlUssVag5bvEZ9hz_Z7VTkD0V_KA6EZnuhp7JgxbHV.jpg?r=1db"
+    "https://occ-0-3996-2219.1.nflxso.net/dnm/api/v6/E8vDc_W8CLv7-yMQu8KMEC7Rrr8/AAAABU1tYuVSR3eICY8dHeQB33ThME4pRRX5sVeP1917PTzHF3DCofqwsPIrfK80UCZ1AFROA50znzTEVO6MtNwOQXsAjYg1.jpg?r=354"
   );
   const [summary, setSummary] = useState("");
   const [title, setTitle] = useState("");
