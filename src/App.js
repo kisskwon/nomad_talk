@@ -4,9 +4,9 @@ import { RecoilRoot } from "recoil";
 import StoreObserver from "./firebase/StoreObserver";
 import Idle from "./screen/Idle";
 import ImageViewer from "./screen/ImageViewer";
+import LauncherMessage from "./screen/LauncherMessage";
 import SliderMessage from "./screen/SliderMessage";
 import TextMessage from "./screen/TextMessage";
-import NetflixMessage from "./screen/NetflixMessage";
 
 const darkTheme = createTheme({
   palette: {
@@ -38,8 +38,8 @@ const AppRoutes = () => {
     { path: "/youtube", element: <TextMessage youtube /> },
     { path: "/detail", element: <SliderMessage /> },
     { path: "/viewer", element: <ImageViewer /> },
-    { path: "/shopping", element: <TextMessage shopping /> },
-    { path: "/netflix", element: <NetflixMessage /> },
+    { path: "/shopping", element: <LauncherMessage shopping /> },
+    { path: "/netflix", element: <LauncherMessage /> },
   ]);
   return routes;
 };

@@ -9,7 +9,7 @@ import { useNavigate } from "react-router-dom";
 import { debug } from "../constants";
 import { db } from "../firebase/firebase";
 
-function NetflixMessage(props) {
+function LauncherMessage(props) {
   const [event, setEvent] = useState("null");
   const [imgUrl, setImgUrl] = useState(
     "https://occ-0-3996-2219.1.nflxso.net/dnm/api/v6/E8vDc_W8CLv7-yMQu8KMEC7Rrr8/AAAABU1tYuVSR3eICY8dHeQB33ThME4pRRX5sVeP1917PTzHF3DCofqwsPIrfK80UCZ1AFROA50znzTEVO6MtNwOQXsAjYg1.jpg?r=354"
@@ -18,13 +18,16 @@ function NetflixMessage(props) {
   const [title, setTitle] = useState("");
   const navigate = useNavigate();
 
+  const avartar = props.shopping ? "https://cdn-icons.flaticon.com/png/512/3165/premium/3165112.png?token=exp=1648618835~hmac=0fbb4b4b1fb60938e532a303b2ee8913" :
+  "https://scontent-ssn1-1.xx.fbcdn.net/v/t31.18172-1/13490708_1055815107843429_6253986289710696521_o.png?stp=dst-png_p148x148&amp;_nc_cat=1&amp;ccb=1-5&amp;_nc_sid=1eb0c7&amp;_nc_ohc=ZBg617M8aVEAX_N2Ysc&amp;_nc_ht=scontent-ssn1-1.xx&amp;oh=00_AT8yCYPxV8MTKprgaPQLgx3xwHTmQ6OAFqeLIOxqiZu8RA&amp;oe=6265DCAD";
+
   const keyListener = useCallback(
     (e) => {
       setEvent(e.key);
       if (e.key === "Enter") {
-        setDoc(doc(db, "thinq_talk", "netflix"), {
-          play: true,
-        });
+        const message_type = props.shopping ? "browser" : "netflix";
+        const data = props.shopping ? { show : true} : { play: true };
+        setDoc(doc(db, "thinq_talk", message_type), data);
         setTimeout(() => {
           navigate("/", { replace: true });
           setDoc(doc(db, "thinq_talk", "application"), {
@@ -99,7 +102,7 @@ function NetflixMessage(props) {
                 sx={{ width: 56, height: 56 }}
                 aria-label="recipe"
                 variant="rounded"
-                src="https://scontent-ssn1-1.xx.fbcdn.net/v/t31.18172-1/13490708_1055815107843429_6253986289710696521_o.png?stp=dst-png_p148x148&amp;_nc_cat=1&amp;ccb=1-5&amp;_nc_sid=1eb0c7&amp;_nc_ohc=ZBg617M8aVEAX_N2Ysc&amp;_nc_ht=scontent-ssn1-1.xx&amp;oh=00_AT8yCYPxV8MTKprgaPQLgx3xwHTmQ6OAFqeLIOxqiZu8RA&amp;oe=6265DCAD"
+                src={avartar}
               />
             }
             title={title}
@@ -131,4 +134,4 @@ function NetflixMessage(props) {
   );
 }
 
-export default NetflixMessage;
+export default LauncherMessage;
