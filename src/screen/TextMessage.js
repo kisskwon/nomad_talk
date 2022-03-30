@@ -7,6 +7,7 @@ import Typography from "@mui/material/Typography";
 import { doc, setDoc, writeBatch } from "firebase/firestore";
 import React, { useCallback, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import TTSGoogleNode from "../components/TTSGoogleNode";
 import { debug } from "../constants";
 import { db } from "../firebase/firebase";
 import icon from "../img/ic_launcher_thinq.png";
@@ -149,6 +150,7 @@ function TextMessage(props) {
           {card(props, message)}
         </Card>
       </Box>
+      <TTSGoogleNode text={message} />
     </>
   );
 }
