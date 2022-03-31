@@ -1,4 +1,4 @@
-import { Avatar, CardHeader, Paper } from "@mui/material";
+import { Avatar, CardHeader, Chip, Paper } from "@mui/material";
 import Box from "@mui/material/Box";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
@@ -8,6 +8,7 @@ import React, { useCallback, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { debug } from "../constants";
 import { db } from "../firebase/firebase";
+import thinqIcon from "../img/ic_launcher_thinq.png";
 
 function LauncherMessage(props) {
   const [event, setEvent] = useState("null");
@@ -91,8 +92,17 @@ function LauncherMessage(props) {
             borderRadius: 20,
             p: 2,
             pb: 0,
+            overflow: "visible",
           }}
         >
+          <Box sx={{ mt: -4, ml: 4 }}>
+            <Chip
+              label="ThinQ 알리미"
+              variant="outlined"
+              sx={{ backgroundColor: "#000000dd", px: 1, py: 2 }}
+              avatar={<Avatar alt="Remy Sharp" src={thinqIcon} />}
+            />
+          </Box>
           <CardHeader
             avatar={
               <Avatar
@@ -106,14 +116,14 @@ function LauncherMessage(props) {
                 }
               />
             }
-            title={title}
-            titleTypographyProps={{ variant: "h5" }}
+            title={title.length > 18 ? title.substring(0, 17) + "..." : title}
+            titleTypographyProps={{ variant: "h6" }}
             sx={{ pb: 0 }}
           />
           <CardContent sx={{ pt: 0 }}>
             <Paper
               variant="outlined"
-              sx={{ px: 2, py: 2, bgcolor: "transparent" }}
+              sx={{ px: 2, py: 2, bgcolor: "#000000aa", borderRadius: 4 }}
             >
               <div style={{ textAlign: "center" }}>
                 <img src={imgUrl} alt="" width="550px" />

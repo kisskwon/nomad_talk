@@ -1,8 +1,7 @@
-import { Avatar, CardHeader, Paper } from "@mui/material";
+import { Avatar, CardHeader, Chip, Paper } from "@mui/material";
 import Box from "@mui/material/Box";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
-import { red } from "@mui/material/colors";
 import Typography from "@mui/material/Typography";
 import { doc, getDoc, setDoc } from "firebase/firestore";
 import React, { useCallback, useEffect, useState } from "react";
@@ -17,8 +16,7 @@ function TextMessage(props) {
   const { image, slider, youtube, kakaotalk } = props;
   const [event, setEvent] = useState("null");
   const [icon, setIcon] = useState(thinqIcon);
-  const [title, setTitle] = useState("ThinQ Talk");
-  const [from, setFrom] = useState("");
+  const [from, setFrom] = useState(null);
   const [message, setMessage] = useState(null);
   const [ttsText, setTtsText] = useState("");
   const navigate = useNavigate();
@@ -29,7 +27,6 @@ function TextMessage(props) {
       setMessage("오늘 손주 태권도 상 받아 왔어요 (사진)");
     } else if (slider) {
       setFrom("최신규");
-      setTitle("ThinQ Gallery");
       setMessage("지호 어린이집 첫 등교했어요 (사진)");
     } else if (youtube) {
       setFrom("최신규");
@@ -37,7 +34,6 @@ function TextMessage(props) {
     } else if (kakaotalk) {
       const getContents = async () => {
         const docSnap = await getDoc(doc(db, "thinq_talk", "contents"));
-        setTitle("Kakao Talk");
         setIcon(kakaoIcon);
         setFrom(docSnap.data().from);
         setMessage(docSnap.data().text);
@@ -47,7 +43,7 @@ function TextMessage(props) {
   }, [image, kakaotalk, slider, youtube]);
 
   useEffect(() => {
-    if (from !== null) {
+    if (message !== null) {
       setTtsText(from + " 님에게서 메세지가 도착했습니다. " + message);
     }
   }, [from, message]);
@@ -127,8 +123,17 @@ function TextMessage(props) {
             width: 480,
             borderRadius: 20,
             p: 3,
+            overflow: "visible",
           }}
         >
+          <Box sx={{ mt: -5, ml: 5 }}>
+            <Chip
+              label="ThinQ 알리미"
+              variant="outlined"
+              sx={{ backgroundColor: "#000000dd", px: 1, py: 2.5 }}
+              avatar={<Avatar alt="Remy Sharp" src={thinqIcon} />}
+            />
+          </Box>
           <CardHeader
             avatar={
               <Avatar
@@ -138,28 +143,20 @@ function TextMessage(props) {
                 src={icon}
               />
             }
-            title={title}
-            titleTypographyProps={{ variant: "h5" }}
+            title={from + " 님"}
+            titleTypographyProps={{ variant: "h6" }}
+            sx={{ pb: 0 }}
           />
-          <CardContent>
-            <Box sx={{ display: "flex" }}>
-              <Avatar
-                sx={{
-                  bgcolor: red[300],
-                  width: 56,
-                  height: 56,
-                  mr: 2,
-                  my: "auto",
-                }}
-                aria-label="recipe"
-              >
-                {from?.charAt(0)}
-              </Avatar>
-              <Typography variant="h5" component="div">
-                {from + " 님"}
-              </Typography>
-            </Box>
-            <Paper elevation={10} sx={{ my: 2, mx: 2, p: 6, borderRadius: 4 }}>
+          <CardContent sx={{ pt: 0 }}>
+            <Paper
+              elevation={10}
+              sx={{
+                mb: 2,
+                p: 6,
+                borderRadius: 4,
+                minHeight: "160px",
+              }}
+            >
               <Typography variant="body2">{message}</Typography>
             </Paper>
             <Typography
@@ -167,8 +164,15 @@ function TextMessage(props) {
               color="text.secondary"
               sx={{ textAlign: "center" }}
             >
-              리모콘의 "OK" 버튼을 눌러 <br />
-              자세히 보기
+              {kakaotalk ? (
+                <>
+                  리모콘의 "OK"를 눌러 <br /> TV화면으로 돌아가기
+                </>
+              ) : (
+                <>
+                  리모콘의 "OK" 버튼을 눌러 <br /> 자세히 보기
+                </>
+              )}
             </Typography>
           </CardContent>
         </Card>

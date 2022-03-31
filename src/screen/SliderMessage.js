@@ -1,7 +1,6 @@
-import { Avatar, Box, CardHeader, Paper } from "@mui/material";
+import { Avatar, Box, CardHeader, Chip, Paper } from "@mui/material";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
-import { red } from "@mui/material/colors";
 import Typography from "@mui/material/Typography";
 import { doc, setDoc } from "firebase/firestore";
 import React, { useEffect, useRef, useState } from "react";
@@ -12,6 +11,7 @@ import { useRecoilValue } from "recoil";
 import { debug } from "../constants";
 import { imageUrlsState } from "../data/imageUrls";
 import { db } from "../firebase/firebase";
+import thinqIcon from "../img/ic_launcher_thinq.png";
 import "./SliderMessage.css";
 
 function SliderMessage(props) {
@@ -84,17 +84,25 @@ function SliderMessage(props) {
             backgroundColor: "#000000aa",
             borderRadius: 20,
             p: 2,
+            overflow: "visible",
           }}
         >
+          <Box sx={{ mt: -4, ml: 5 }}>
+            <Chip
+              label="ThinQ 알리미"
+              variant="outlined"
+              sx={{ backgroundColor: "#000000dd", px: 1, py: 2.5 }}
+              avatar={<Avatar alt="Remy Sharp" src={thinqIcon} />}
+            />
+          </Box>
           <CardHeader
             avatar={
               <Avatar
-                sx={{ bgcolor: red[300], width: 56, height: 56 }}
+                sx={{ width: 56, height: 56 }}
                 aria-label="recipe"
                 variant="rounded"
-              >
-                최
-              </Avatar>
+                src={thinqIcon}
+              />
             }
             title={
               location.state.slider
@@ -102,17 +110,19 @@ function SliderMessage(props) {
                 : "최신규 님의 메세지"
             }
             titleTypographyProps={{ variant: "h6" }}
+            sx={{ pb: 0 }}
           />
-          <CardContent>
+          <CardContent sx={{ pt: 0 }}>
             <Paper
               variant="outlined"
               sx={{
-                bgcolor: "transparent",
+                bgcolor: "#000000aa",
                 px: 1,
                 py: 2,
+                borderRadius: 4,
               }}
             >
-              <Typography gutterBottom variant="body2">
+              <Typography gutterBottom variant="body2" sx={{ mx: 1 }}>
                 {location.state.message}
               </Typography>
               <Slide
