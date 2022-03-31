@@ -6,7 +6,6 @@ import Typography from "@mui/material/Typography";
 import { doc, getDoc, setDoc } from "firebase/firestore";
 import React, { useCallback, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import TTSGoogleNode from "../components/TTSGoogleNode";
 import { debug } from "../constants";
 import { db } from "../firebase/firebase";
 
@@ -17,7 +16,6 @@ function LauncherMessage(props) {
   );
   const [summary, setSummary] = useState("");
   const [title, setTitle] = useState("");
-  const [ttsText, setTtsText] = useState("");
   const navigate = useNavigate();
 
   const keyListener = useCallback(
@@ -56,11 +54,6 @@ function LauncherMessage(props) {
       setTitle(docSnap.data().title);
       setSummary(docSnap.data().summary);
       setImgUrl(docSnap.data().url);
-      setTtsText(
-        docSnap.data().title +
-          " " +
-          (docSnap.data().summary ? docSnap.data().summary : "")
-      );
     };
     getContents();
   }, []);
@@ -138,7 +131,6 @@ function LauncherMessage(props) {
           </CardContent>
         </Card>
       </Box>
-      <TTSGoogleNode text={ttsText} />
     </>
   );
 }

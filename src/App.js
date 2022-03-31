@@ -17,6 +17,8 @@ const darkTheme = createTheme({
   },
 });
 
+let cnt = 0;
+
 function App() {
   return (
     <RecoilRoot>
@@ -33,10 +35,10 @@ function App() {
 const AppRoutes = () => {
   const routes = useRoutes([
     { path: "/", element: <Idle /> },
-    { path: "/image", element: <TextMessage image /> },
-    { path: "/slider", element: <TextMessage slider /> },
-    { path: "/youtube", element: <TextMessage youtube /> },
-    { path: "/kakaotalk", element: <TextMessage kakaotalk /> },
+    { path: "/image", element: <TextMessage image key={cnt++} /> },
+    { path: "/slider", element: <TextMessage slider key={cnt++} /> },
+    { path: "/youtube", element: <TextMessage youtube key={cnt++} /> },
+    { path: "/kakaotalk", element: <TextMessage kakaotalk key={cnt++} /> },
     { path: "/detail", element: <SliderMessage /> },
     { path: "/viewer", element: <ImageViewer /> },
     { path: "/shopping", element: <LauncherMessage shopping /> },

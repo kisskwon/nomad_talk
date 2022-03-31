@@ -18,17 +18,21 @@ function TextMessage(props) {
   const [event, setEvent] = useState("null");
   const [icon, setIcon] = useState(thinqIcon);
   const [title, setTitle] = useState("ThinQ Talk");
-  const [from, setFrom] = useState("최신규");
-  const [message, setMessage] = useState("");
+  const [from, setFrom] = useState("");
+  const [message, setMessage] = useState(null);
+  const [ttsText, setTtsText] = useState("");
   const navigate = useNavigate();
 
   useEffect(() => {
     if (image) {
+      setFrom("최신규");
       setMessage("오늘 손주 태권도 상 받아 왔어요 (사진)");
     } else if (slider) {
+      setFrom("최신규");
       setTitle("ThinQ Gallery");
       setMessage("지호 어린이집 첫 등교했어요 (사진)");
     } else if (youtube) {
+      setFrom("최신규");
       setMessage("제가 좋아하는 걸그룹이예요 (동영상)");
     } else if (kakaotalk) {
       const getContents = async () => {
@@ -41,6 +45,12 @@ function TextMessage(props) {
       getContents();
     }
   }, [image, kakaotalk, slider, youtube]);
+
+  useEffect(() => {
+    if (from !== null) {
+      setTtsText(from + " 님에게서 메세지가 도착했습니다. " + message);
+    }
+  }, [from, message]);
 
   const keyListener = useCallback(
     (e) => {
@@ -61,6 +71,11 @@ function TextMessage(props) {
               poweron: false,
             });
           }, 500);
+        } else if (kakaotalk) {
+          navigate("/", { replace: true });
+          setDoc(doc(db, "thinq_talk", "application"), {
+            poweron: false,
+          });
         }
       } else if (e.key === "GoBack") {
         // need finish web app
@@ -70,7 +85,7 @@ function TextMessage(props) {
         });
       }
     },
-    [image, slider, youtube, navigate, message]
+    [image, slider, youtube, kakaotalk, navigate, message]
   );
 
   const clickListener = useCallback(
@@ -158,7 +173,7 @@ function TextMessage(props) {
           </CardContent>
         </Card>
       </Box>
-      <TTSGoogleNode text={message} />
+      <TTSGoogleNode text={ttsText} />
     </>
   );
 }

@@ -12,6 +12,7 @@ function TTSGoogleNode(props) {
       "http://10.158.2.146:5000/tts",
       {
         text: text,
+        language: "ko-KR",
         gender: "FEMALE",
       },
       {
