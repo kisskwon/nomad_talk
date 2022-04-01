@@ -1,15 +1,14 @@
 {
   "files": {
     "main.css": "/thinq_talk/static/css/main.a847c291.css",
-    "main.js": "/thinq_talk/static/js/main.3812f664.js",
-    "static/media/takkwan.jpeg": "/thinq_talk/static/media/takkwan.cd33591061aa403d7df8.jpeg",
+    "main.js": "/thinq_talk/static/js/main.9e51da00.js",
     "static/media/ic_kakao_talk.png": "/thinq_talk/static/media/ic_kakao_talk.6d9f40248542b11e99c9.png",
     "index.html": "/thinq_talk/index.html",
     "main.a847c291.css.map": "/thinq_talk/static/css/main.a847c291.css.map",
-    "main.3812f664.js.map": "/thinq_talk/static/js/main.3812f664.js.map"
+    "main.9e51da00.js.map": "/thinq_talk/static/js/main.9e51da00.js.map"
   },
   "entrypoints": [
     "static/css/main.a847c291.css",
-    "static/js/main.3812f664.js"
+    "static/js/main.9e51da00.js"
   ]
 }
