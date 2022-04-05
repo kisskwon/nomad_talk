@@ -7,7 +7,7 @@ import { doc, getDoc, setDoc } from "firebase/firestore";
 import React, { useCallback, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import TTSGoogleNode from "../components/TTSGoogleNode";
-import { debug } from "../constants";
+import { debug } from "../data/constants";
 import { db } from "../firebase/firebase";
 import kakaoIcon from "../img/ic_kakao_talk.png";
 import thinqIcon from "../img/ic_launcher_thinq.png";
@@ -18,16 +18,16 @@ function TextMessage(props) {
   const [icon, setIcon] = useState(thinqIcon);
   const [from, setFrom] = useState(null);
   const [message, setMessage] = useState(null);
-  const [ttsText, setTtsText] = useState("");
+  const [ttsText, setTtsText] = useState();
   const navigate = useNavigate();
 
   useEffect(() => {
     if (image) {
       setFrom("최신규");
-      setMessage("오늘 손주 태권도 상 받아 왔어요 (사진)");
+      setMessage("오늘 이준이 태권도 금메달 땄어요 (사진)");
     } else if (slider) {
       setFrom("최신규");
-      setMessage("지호 어린이집 첫 등교했어요 (사진)");
+      setMessage("서준이 어린이집 첫 등원했어요 (사진)");
     } else if (youtube) {
       setFrom("최신규");
       setMessage("제가 좋아하는 걸그룹이예요 (동영상)");
@@ -44,7 +44,8 @@ function TextMessage(props) {
 
   useEffect(() => {
     if (message !== null) {
-      setTtsText(from + " 님에게서 메세지가 도착했습니다. " + message);
+      console.log("set ttstext");
+      setTtsText({ from: from, message: message });
     }
   }, [from, message]);
 
@@ -53,6 +54,7 @@ function TextMessage(props) {
       setEvent(e.key);
       if (e.key === "Enter") {
         if (image || slider) {
+          localStorage.setItem("imgIndex", 0);
           navigate("/detail", {
             replace: true,
             state: { keyevent: e.key, message: message, slider },
@@ -177,7 +179,7 @@ function TextMessage(props) {
           </CardContent>
         </Card>
       </Box>
-      <TTSGoogleNode text={ttsText} />
+      {ttsText && <TTSGoogleNode text={ttsText} />}
     </>
   );
 }

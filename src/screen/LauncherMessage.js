@@ -6,15 +6,13 @@ import Typography from "@mui/material/Typography";
 import { doc, getDoc, setDoc } from "firebase/firestore";
 import React, { useCallback, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { debug } from "../constants";
+import { debug } from "../data/constants";
 import { db } from "../firebase/firebase";
 import thinqIcon from "../img/ic_launcher_thinq.png";
 
 function LauncherMessage(props) {
   const [event, setEvent] = useState("null");
-  const [imgUrl, setImgUrl] = useState(
-    "https://occ-0-3996-2219.1.nflxso.net/dnm/api/v6/E8vDc_W8CLv7-yMQu8KMEC7Rrr8/AAAABU1tYuVSR3eICY8dHeQB33ThME4pRRX5sVeP1917PTzHF3DCofqwsPIrfK80UCZ1AFROA50znzTEVO6MtNwOQXsAjYg1.jpg?r=354"
-  );
+  const [imgUrl, setImgUrl] = useState("");
   const [summary, setSummary] = useState("");
   const [title, setTitle] = useState("");
   const navigate = useNavigate();
@@ -116,7 +114,7 @@ function LauncherMessage(props) {
                 }
               />
             }
-            title={title.length > 18 ? title.substring(0, 17) + "..." : title}
+            title={title.length > 15 ? title.substring(0, 14) + "..." : title}
             titleTypographyProps={{ variant: "h6" }}
             sx={{ pb: 0 }}
           />

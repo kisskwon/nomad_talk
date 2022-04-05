@@ -8,7 +8,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { Slide } from "react-slideshow-image";
 import "react-slideshow-image/dist/styles.css";
 import { useRecoilValue } from "recoil";
-import { debug } from "../constants";
+import { debug } from "../data/constants";
 import { imageUrlsState } from "../data/imageUrls";
 import { db } from "../firebase/firebase";
 import thinqIcon from "../img/ic_launcher_thinq.png";
@@ -25,7 +25,6 @@ function SliderMessage(props) {
     Number(localStorage.getItem("imgIndex")) || 0
   );
 
-  console.log("kks", imgIndex);
   useEffect(() => {
     const keyListener = (e) => {
       setEvent(e.key);
@@ -133,6 +132,7 @@ function SliderMessage(props) {
                 infinite={imageItems.length > 1}
                 autoplay={imageItems.length > 1 && autoplay}
                 onChange={(target) => {
+                  console.log("target:", target);
                   setImgIndex((target + 1) % imageItems.length);
                 }}
                 defaultIndex={imgIndex}

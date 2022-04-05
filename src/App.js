@@ -39,10 +39,11 @@ const AppRoutes = () => {
     { path: "/slider", element: <TextMessage slider key={cnt++} /> },
     { path: "/youtube", element: <TextMessage youtube key={cnt++} /> },
     { path: "/kakaotalk", element: <TextMessage kakaotalk key={cnt++} /> },
-    { path: "/detail", element: <SliderMessage /> },
+    { path: "/detail", element: <SliderMessage key={cnt++} /> },
     { path: "/viewer", element: <ImageViewer /> },
-    { path: "/shopping", element: <LauncherMessage shopping /> },
-    { path: "/netflix", element: <LauncherMessage /> },
+    { path: "/shopping", element: <LauncherMessage shopping key={cnt++} /> },
+    { path: "/netflix", element: <LauncherMessage key={cnt++} /> },
+    { path: "/drawmemo", element: <SliderMessage memo key={cnt++} /> },
   ]);
   return routes;
 };

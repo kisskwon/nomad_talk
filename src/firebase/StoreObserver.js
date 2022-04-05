@@ -51,7 +51,7 @@ function StoreObserver(props) {
         });
       })
       .catch((error) => {
-        console.log("kks", "listAll error", error);
+        console.log("listAll error", error);
       });
   }, [resetImageUrls, setImageUrls]);
 
@@ -73,7 +73,7 @@ function StoreObserver(props) {
   }, []);
 
   useEffect(() => {
-    console.log("kks", msgtype);
+    console.log("msgtype", msgtype);
     if (msgtype === "single") {
       setImageUrls([singleImg]);
       navigation.current.navigate("/image");
@@ -103,6 +103,14 @@ function StoreObserver(props) {
       });
     } else if (msgtype === "kakaotalk") {
       navigation.current.navigate("/kakaotalk");
+      setDoc(doc(db, "thinq_talk", "message_type"), {
+        type: "",
+      });
+    } else if (msgtype === "memo") {
+      predownload();
+      navigation.current.navigate("/drawmemo", {
+        state: { keyevent: "memo", message: "" },
+      });
       setDoc(doc(db, "thinq_talk", "message_type"), {
         type: "",
       });
