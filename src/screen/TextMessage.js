@@ -29,8 +29,12 @@ function TextMessage(props) {
       setFrom("최신규");
       setMessage("서준이 어린이집 첫 등원했어요 (사진)");
     } else if (youtube) {
-      setFrom("최신규");
-      setMessage("제가 좋아하는 걸그룹이예요 (동영상)");
+      const getContents = async () => {
+        const docSnap = await getDoc(doc(db, "thinq_talk", "contents"));
+        setFrom("최신규");
+        setMessage(docSnap.data().text + " (동영상)");
+      };
+      getContents();
     } else if (kakaotalk) {
       const getContents = async () => {
         const docSnap = await getDoc(doc(db, "thinq_talk", "contents"));
