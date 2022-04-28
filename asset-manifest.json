@@ -1,17 +1,17 @@
 {
   "files": {
     "main.css": "/nomad_talk/static/css/main.a847c291.css",
-    "main.js": "/nomad_talk/static/js/main.8b6d41d0.js",
+    "main.js": "/nomad_talk/static/js/main.7aa83265.js",
     "static/media/takkwan.jpeg": "/nomad_talk/static/media/takkwan.cd33591061aa403d7df8.jpeg",
     "static/media/ic_kakao_talk.png": "/nomad_talk/static/media/ic_kakao_talk.6d9f40248542b11e99c9.png",
     "static/media/taekwon.mp3": "/nomad_talk/static/media/taekwon.84c6f886cf54d3710adc.mp3",
     "static/media/babyhouse.mp3": "/nomad_talk/static/media/babyhouse.b47b8349ba4cef0dfa65.mp3",
     "index.html": "/nomad_talk/index.html",
     "main.a847c291.css.map": "/nomad_talk/static/css/main.a847c291.css.map",
-    "main.8b6d41d0.js.map": "/nomad_talk/static/js/main.8b6d41d0.js.map"
+    "main.7aa83265.js.map": "/nomad_talk/static/js/main.7aa83265.js.map"
   },
   "entrypoints": [
     "static/css/main.a847c291.css",
-    "static/js/main.8b6d41d0.js"
+    "static/js/main.7aa83265.js"
   ]
 }
