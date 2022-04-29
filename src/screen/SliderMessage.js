@@ -15,15 +15,16 @@ import thinqIcon from "../img/ic_launcher_thinq.png";
 import "./SliderMessage.css";
 
 function SliderMessage(props) {
+  const navigate = useNavigate();
   const location = useLocation();
   const [event, setEvent] = useState(location.state.keyevent);
-  const imageItems = useRecoilValue(imageUrlsState);
-  const navigate = useNavigate();
-  const sliderRef = useRef();
   const [autoplay, setAutoplay] = useState(true);
   const [imgIndex, setImgIndex] = useState(
     Number(localStorage.getItem("imgIndex")) || 0
   );
+
+  const imageItems = useRecoilValue(imageUrlsState);
+  const sliderRef = useRef();
 
   useEffect(() => {
     const keyListener = (e) => {
@@ -42,7 +43,7 @@ function SliderMessage(props) {
       } else if (e.key === "ArrowUp") {
         // go hwakdae
         navigate("/viewer", {
-          state: { image: imageItems[imgIndex], imgIndex: imgIndex },
+          state: { imgIndex: imgIndex },
         });
       }
     };
@@ -129,11 +130,12 @@ function SliderMessage(props) {
                 duration={2000}
                 arrows={imageItems.length > 1}
                 indicators={imageItems.length > 1}
-                infinite={imageItems.length > 1}
+                // infinite={imageItems.length > 1}
+                infinite={false}
                 autoplay={imageItems.length > 1 && autoplay}
-                onChange={(target) => {
-                  console.log("target:", target);
-                  setImgIndex((target + 1) % imageItems.length);
+                onChange={(oldTarget, newTarget) => {
+                  console.log("old:", oldTarget, "new:", newTarget);
+                  setImgIndex(newTarget);
                 }}
                 defaultIndex={imgIndex}
               >

@@ -1,0 +1,19 @@
+.image-viewer .default-nav {
+    transform: scale(2);
+}
+.image-viewer .default-nav:first-of-type {
+    margin-left: 200px !important;
+    margin-right: -230px !important;
+}
+.image-viewer .default-nav:last-of-type {
+    margin-left: -230px !important;
+}
+.image-viewer li {
+    width: 20px !important;
+    height: 20px !important;
+    padding: 10px !important;
+}
+.image-viewer .each-slideshow-indicator:before {
+    width: 20px !important;
+    height: 20px !important;
+}
