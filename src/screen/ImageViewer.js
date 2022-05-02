@@ -1,17 +1,37 @@
 import { Box, Typography } from "@mui/material";
 import React, { useEffect, useRef, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import { debug } from "../data/constants";
 import { Slide } from "react-slideshow-image";
 import { useRecoilValue } from "recoil";
+import { debug } from "../data/constants";
 import { imageUrlsState } from "../data/imageUrls";
-import "./ImageViewer.css"
+import "./ImageViewer.css";
 
 const properties = {
   autoplay: false,
   infinite: false,
-  prevArrow: <button className="nav default-nav" data-type="prev" aria-label="Previous Slide"><svg width="24" height="24" viewBox="0 0 24 24"><path d="M16.67 0l2.83 2.829-9.339 9.175 9.339 9.167-2.83 2.829-12.17-11.996z"></path></svg></button>,
-  nextArrow: <button className="nav default-nav" data-type="next" aria-label="Next Slide"><svg width="24" height="24" viewBox="0 0 24 24"><path d="M5 3l3.057-3 11.943 12-11.943 12-3.057-3 9-9z"></path></svg></button>
+  prevArrow: (
+    <button
+      className="nav default-nav"
+      data-type="prev"
+      aria-label="Previous Slide"
+    >
+      <svg width="24" height="24" viewBox="0 0 24 24">
+        <path d="M16.67 0l2.83 2.829-9.339 9.175 9.339 9.167-2.83 2.829-12.17-11.996z"></path>
+      </svg>
+    </button>
+  ),
+  nextArrow: (
+    <button
+      className="nav default-nav"
+      data-type="next"
+      aria-label="Next Slide"
+    >
+      <svg width="24" height="24" viewBox="0 0 24 24">
+        <path d="M5 3l3.057-3 11.943 12-11.943 12-3.057-3 9-9z"></path>
+      </svg>
+    </button>
+  ),
 };
 
 function ImageViewer(props) {
@@ -48,7 +68,7 @@ function ImageViewer(props) {
         </Box>
       )}
       <Box
-      className="image-viewer"
+        className="image-viewer"
         sx={{
           position: "absolute",
           top: 0,
@@ -75,7 +95,13 @@ function ImageViewer(props) {
               key={index}
               style={{ textAlign: "center" }}
             >
-              <img src={slideImage} alt="" width="70%" height="70%" />
+              <img
+                src={slideImage}
+                alt=""
+                width="1820"
+                height="980"
+                style={{ objectFit: "contain" }}
+              />
             </div>
           ))}
         </Slide>

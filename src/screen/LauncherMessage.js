@@ -6,15 +6,18 @@ import Typography from "@mui/material/Typography";
 import { doc, getDoc, setDoc } from "firebase/firestore";
 import React, { useCallback, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import thinqIcon from "../assets/img/ic_launcher_thinq.png";
+import TTSGoogleNode from "../components/TTSGoogleNode";
 import { debug } from "../data/constants";
 import { db } from "../firebase/firebase";
-import thinqIcon from "../img/ic_launcher_thinq.png";
 
 function LauncherMessage(props) {
   const [event, setEvent] = useState("null");
   const [imgUrl, setImgUrl] = useState("");
+  const [message, setMessage] = useState("");
   const [summary, setSummary] = useState("");
   const [title, setTitle] = useState("");
+  const [ttsText, setTtsText] = useState();
   const navigate = useNavigate();
 
   const keyListener = useCallback(
@@ -53,6 +56,7 @@ function LauncherMessage(props) {
       setTitle(docSnap.data().title);
       setSummary(docSnap.data().summary);
       setImgUrl(docSnap.data().url);
+      setMessage(docSnap.data().message);
     };
     getContents();
   }, []);
@@ -65,6 +69,13 @@ function LauncherMessage(props) {
       window.removeEventListener("click", clickListener);
     };
   }, [clickListener, keyListener]);
+
+  useEffect(() => {
+    if (!message) {
+      return;
+    }
+    setTtsText({ message: message });
+  }, [message]);
 
   return (
     <>
@@ -95,7 +106,7 @@ function LauncherMessage(props) {
         >
           <Box sx={{ mt: -4, ml: 4 }}>
             <Chip
-              label="ThinQ 알리미"
+              label="ThinQ Talk"
               variant="outlined"
               sx={{ backgroundColor: "#000000dd", px: 1, py: 2 }}
               avatar={<Avatar alt="Remy Sharp" src={thinqIcon} />}
@@ -114,7 +125,7 @@ function LauncherMessage(props) {
                 }
               />
             }
-            title={title.length > 15 ? title.substring(0, 14) + "..." : title}
+            title={title?.length > 15 ? title.substring(0, 14) + "..." : title}
             titleTypographyProps={{ variant: "h6" }}
             sx={{ pb: 0 }}
           />
@@ -126,7 +137,9 @@ function LauncherMessage(props) {
               <div style={{ textAlign: "center" }}>
                 <img src={imgUrl} alt="" width="550px" />
               </div>
-              <Typography variant="subtitle2">{summary}</Typography>
+              <Typography variant="subtitle2">
+                {(message !== "none" && message) || summary}
+              </Typography>
             </Paper>
             <Typography
               variant="subtitle1"
@@ -139,6 +152,7 @@ function LauncherMessage(props) {
           </CardContent>
         </Card>
       </Box>
+      {ttsText && <TTSGoogleNode text={ttsText} />}
     </>
   );
 }

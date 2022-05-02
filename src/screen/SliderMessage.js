@@ -1,4 +1,4 @@
-import { Avatar, Box, CardHeader, Chip, Paper } from "@mui/material";
+import { Avatar, Box, CardHeader, Chip } from "@mui/material";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
@@ -8,10 +8,11 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { Slide } from "react-slideshow-image";
 import "react-slideshow-image/dist/styles.css";
 import { useRecoilValue } from "recoil";
+import ariana from "../assets/img/ariana_avatar.png";
+import thinqIcon from "../assets/img/ic_launcher_thinq.png";
 import { debug } from "../data/constants";
 import { imageUrlsState } from "../data/imageUrls";
 import { db } from "../firebase/firebase";
-import thinqIcon from "../img/ic_launcher_thinq.png";
 import "./SliderMessage.css";
 
 function SliderMessage(props) {
@@ -80,16 +81,16 @@ function SliderMessage(props) {
       >
         <Card
           sx={{
-            width: 700,
+            width: 480,
             backgroundColor: "#000000aa",
             borderRadius: 20,
-            p: 2,
+            p: 3,
             overflow: "visible",
           }}
         >
           <Box sx={{ mt: -4, ml: 5 }}>
             <Chip
-              label="ThinQ 알리미"
+              label="ThinQ Talk"
               variant="outlined"
               sx={{ backgroundColor: "#000000dd", px: 1, py: 2.5 }}
               avatar={<Avatar alt="Remy Sharp" src={thinqIcon} />}
@@ -100,29 +101,28 @@ function SliderMessage(props) {
               <Avatar
                 sx={{ width: 56, height: 56 }}
                 aria-label="recipe"
-                variant="rounded"
-                src={thinqIcon}
+                variant={location.state.slider ? "rounded" : ""}
+                src={location.state.slider ? thinqIcon : ariana}
               />
             }
             title={
-              location.state.slider
-                ? "최신규 님의 갤러리"
-                : "최신규 님의 메세지"
+              location.state.slider ? "최신규 님의 갤러리" : location.state.from
             }
             titleTypographyProps={{ variant: "h6" }}
             sx={{ pb: 0 }}
           />
           <CardContent sx={{ pt: 0 }}>
-            <Paper
-              variant="outlined"
+            <Box
               sx={{
-                bgcolor: "#000000aa",
                 px: 1,
                 py: 2,
-                borderRadius: 4,
               }}
             >
-              <Typography gutterBottom variant="body2" sx={{ mx: 1 }}>
+              <Typography
+                gutterBottom
+                variant="body2"
+                sx={{ mx: 1, whiteSpace: "pre-line" }}
+              >
                 {location.state.message}
               </Typography>
               <Slide
@@ -145,11 +145,16 @@ function SliderMessage(props) {
                     key={index}
                     style={{ textAlign: "center" }}
                   >
-                    <img src={slideImage} alt="" width="540px" />
+                    <img
+                      src={slideImage}
+                      alt=""
+                      width="448px"
+                      style={{ objectFit: "contain", maxHeight: "700px" }}
+                    />
                   </div>
                 ))}
               </Slide>
-            </Paper>
+            </Box>
             <Typography
               variant="subtitle1"
               color="text.secondary"

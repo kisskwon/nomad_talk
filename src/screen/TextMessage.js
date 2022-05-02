@@ -6,11 +6,12 @@ import Typography from "@mui/material/Typography";
 import { doc, getDoc, setDoc } from "firebase/firestore";
 import React, { useCallback, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import ariana from "../assets/img/ariana_avatar.png";
+import kakaoIcon from "../assets/img/ic_kakao_talk.png";
+import thinqIcon from "../assets/img/ic_launcher_thinq.png";
 import TTSGoogleNode from "../components/TTSGoogleNode";
 import { debug } from "../data/constants";
 import { db } from "../firebase/firebase";
-import kakaoIcon from "../img/ic_kakao_talk.png";
-import thinqIcon from "../img/ic_launcher_thinq.png";
 
 function TextMessage(props) {
   const { image, slider, youtube, kakaotalk } = props;
@@ -23,16 +24,17 @@ function TextMessage(props) {
 
   useEffect(() => {
     if (image) {
-      setFrom("최신규");
-      setMessage("오늘 이준이 태권도 금메달 땄어요 (사진)");
+      setIcon(ariana);
+      setFrom("사랑하는 우리 딸");
+      setMessage("아빠!\n지난 주말에는 미안했어~\n사랑해!");
     } else if (slider) {
-      setFrom("최신규");
-      setMessage("서준이 어린이집 첫 등원했어요 (사진)");
+      setFrom("사랑하는 우리 딸");
+      setMessage("엄마!\n지난겨울에 애들과 스키장 다녀온 사진이예요");
     } else if (youtube) {
       const getContents = async () => {
         const docSnap = await getDoc(doc(db, "thinq_talk", "contents"));
-        setFrom("최신규");
-        setMessage(docSnap.data().text + " (동영상)");
+        setFrom("사랑하는 우리 딸");
+        setMessage(docSnap.data().text || "(동영상)");
       };
       getContents();
     } else if (kakaotalk) {
@@ -48,7 +50,6 @@ function TextMessage(props) {
 
   useEffect(() => {
     if (message !== null) {
-      console.log("set ttstext");
       setTtsText({ from: from, message: message });
     }
   }, [from, message]);
@@ -61,7 +62,7 @@ function TextMessage(props) {
           localStorage.setItem("imgIndex", 0);
           navigate("/detail", {
             replace: true,
-            state: { keyevent: e.key, message: message, slider },
+            state: { keyevent: e.key, from: from, message: message, slider },
           });
         } else if (youtube) {
           setDoc(doc(db, "thinq_talk", "youtube"), {
@@ -87,7 +88,7 @@ function TextMessage(props) {
         });
       }
     },
-    [image, slider, youtube, kakaotalk, navigate, message]
+    [navigate, image, slider, youtube, kakaotalk, from, message]
   );
 
   const clickListener = useCallback(
@@ -134,7 +135,7 @@ function TextMessage(props) {
         >
           <Box sx={{ mt: -5, ml: 5 }}>
             <Chip
-              label="ThinQ 알리미"
+              label="ThinQ Talk"
               variant="outlined"
               sx={{ backgroundColor: "#000000dd", px: 1, py: 2.5 }}
               avatar={<Avatar alt="Remy Sharp" src={thinqIcon} />}
@@ -145,11 +146,11 @@ function TextMessage(props) {
               <Avatar
                 sx={{ width: 56, height: 56 }}
                 aria-label="recipe"
-                variant="rounded"
+                // variant="rounded"
                 src={icon}
               />
             }
-            title={from + " 님"}
+            title={from}
             titleTypographyProps={{ variant: "h6" }}
             sx={{ pb: 0 }}
           />
@@ -163,7 +164,9 @@ function TextMessage(props) {
                 minHeight: "160px",
               }}
             >
-              <Typography variant="body2">{message}</Typography>
+              <Typography variant="body2" sx={{ whiteSpace: "pre-line" }}>
+                {message}
+              </Typography>
             </Paper>
             <Typography
               variant="subtitle1"

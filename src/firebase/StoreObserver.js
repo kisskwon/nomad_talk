@@ -3,8 +3,8 @@ import { getDownloadURL, listAll, ref } from "firebase/storage";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useRecoilState, useResetRecoilState } from "recoil";
+import singleImg from "../assets/img/heart.gif";
 import { imageUrlsState } from "../data/imageUrls";
-import singleImg from "../img/takkwan.jpeg";
 import { db, storage } from "./firebase";
 
 let initDB = false;
