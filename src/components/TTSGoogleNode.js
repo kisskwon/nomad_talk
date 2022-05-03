@@ -5,6 +5,7 @@ import newNoti from "../assets/audio/new_noti.mp3";
 import order from "../assets/audio/order.mp3";
 import skiTrip from "../assets/audio/ski_trip.mp3";
 import sorryDaddy from "../assets/audio/sorry_daddy.mp3";
+import youtube from "../assets/audio/youtube.mp3";
 
 function TTSGoogleNode(props) {
   const { from, message } = props.text;
@@ -13,12 +14,11 @@ function TTSGoogleNode(props) {
 
   const requestAudioFile = useCallback(
     async (text) => {
-      console.log("request Audio");
       let stream;
       if (message === "아빠!\n지난 주말에는 미안했어~\n사랑해!") {
         stream = sorryDaddy;
       } else if (
-        message === "엄마!\n지난겨울에 애들과 스키장 다녀온 사진이예요"
+        message === "엄마!\n지난 겨울에 애들과 스키장 다녀온 사진이예요"
       ) {
         stream = skiTrip;
       } else if (message === "이걸로 결정했어! 주문하면 이번주 안에는 올까?") {
@@ -27,8 +27,9 @@ function TTSGoogleNode(props) {
         stream = chicken;
       } else if (
         message ===
-        "엄마가 좋아하는 송강호 배우 나온데요. 개봉하면 같이 보러 가요~"
+        "엄마가 좋아하는 송강호 배우 나온데요.\n개봉하면 같이 보러 가요~"
       ) {
+        stream = youtube;
       } else if (message === "새로운 알림이 도착했어요.") {
         stream = newNoti;
       }
