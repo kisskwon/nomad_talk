@@ -1,10 +1,11 @@
 {
   "files": {
     "main.css": "/nomad_talk/static/css/main.98e1cb6d.css",
-    "main.js": "/nomad_talk/static/js/main.41eccfdd.js",
+    "main.js": "/nomad_talk/static/js/main.6718b330.js",
     "static/media/heart.gif": "/nomad_talk/static/media/heart.93109bc00998299b1a35.gif",
     "static/media/ariana_avatar.png": "/nomad_talk/static/media/ariana_avatar.06204abee83f2bcf86db.png",
     "static/media/ic_kakao_talk.png": "/nomad_talk/static/media/ic_kakao_talk.6d9f40248542b11e99c9.png",
+    "static/media/youtube.mp3": "/nomad_talk/static/media/youtube.9a90d6dc83f37aada1df.mp3",
     "static/media/ski_trip.mp3": "/nomad_talk/static/media/ski_trip.543fb0a55de71813879b.mp3",
     "static/media/chicken.mp3": "/nomad_talk/static/media/chicken.120942fa701d43f40961.mp3",
     "static/media/order.mp3": "/nomad_talk/static/media/order.21e02dc4324534e1fca4.mp3",
@@ -12,10 +13,10 @@
     "static/media/new_noti.mp3": "/nomad_talk/static/media/new_noti.5074a5cc9bc86d906f3c.mp3",
     "index.html": "/nomad_talk/index.html",
     "main.98e1cb6d.css.map": "/nomad_talk/static/css/main.98e1cb6d.css.map",
-    "main.41eccfdd.js.map": "/nomad_talk/static/js/main.41eccfdd.js.map"
+    "main.6718b330.js.map": "/nomad_talk/static/js/main.6718b330.js.map"
   },
   "entrypoints": [
     "static/css/main.98e1cb6d.css",
-    "static/js/main.41eccfdd.js"
+    "static/js/main.6718b330.js"
   ]
 }
