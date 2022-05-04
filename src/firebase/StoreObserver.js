@@ -66,6 +66,7 @@ function StoreObserver(props) {
           initDB = true;
           return;
         }
+        console.log("onSnapshot", "message_type", doc.data().type);
         setMsgtype(doc.data().type);
       }
     );
