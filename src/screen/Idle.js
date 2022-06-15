@@ -1,7 +1,7 @@
 import { Typography } from "@mui/material";
 import { Box } from "@mui/system";
 import { doc, getDoc, setDoc } from "firebase/firestore";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { db } from "../firebase/firebase";
 
 function Idle(props) {
