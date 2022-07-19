@@ -4,13 +4,13 @@ import { getStorage } from "firebase/storage";
 
 const firebaseConfig = {
   // firebase 설정과 관련된 개인 정보
-  apiKey: "AIzaSyCs4V88rHCCpXAhPV3SefY9zA7kAFktUOU",
-  authDomain: "flutter-damda-gallery2.firebaseapp.com",
-  projectId: "flutter-damda-gallery2",
-  storageBucket: "flutter-damda-gallery2.appspot.com",
-  messagingSenderId: "162221939537",
-  appId: "1:162221939537:web:c562287111d83a3d34d170",
-  measurementId: "G-NLZJM75QCF",
+  apiKey: "AIzaSyBsGuLrlLspy3-lVGxliRoLtJEnhB25njQ",
+  authDomain: "lg-mbsu.firebaseapp.com",
+  projectId: "lg-mbsu",
+  storageBucket: "lg-mbsu.appspot.com",
+  messagingSenderId: "593238996806",
+  appId: "1:593238996806:web:126a4b2bde60a07a715747",
+  measurementId: "G-YQZ27KPFBZ",
 };
 
 // firebaseConfig 정보로 firebase 시작
